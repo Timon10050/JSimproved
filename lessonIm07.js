@@ -1,22 +1,25 @@
 'use strict';
 
-let arr = ["26658", "3579", "97905", "456789", "134467", "44467889", "3562"];
-arr.forEach((element) => {
-    if (element[0] == 2 || element[0] == 4) {
-        console.log(element);
-    }
-});
-// Простые числа 
-const simpleNum = () => {
-    let n;
-    for (let i = 2; i < 100; i++) {
-        n = i - 1;
-        while (i % n !== 0 && n > 1) {
-            n--;
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+const day = document.getElementById('weekday'); // Получаем div куда всё будем вставлять
+const todayDay = new Date();
+
+const days = () => {
+    week.forEach((item, i) => {
+        let newdiv = document.createElement('div'); // Для каждого элемента week создаём div
+        if (i === +todayDay.getDay() - 1) { // Если текущий день недели то от номера текущей даты отнимаем единицу, так как массив у нас начинается с нуля
+            console.log(todayDay.getDay());
+            newdiv.classList.add('today'); // Добавляем класс (делаем жирным)
+            newdiv.textContent = week[i]; // Вставляем текст
         }
-        if (n == 1) {
-            console.log(`${i}: Делители этого числа: 1 и ${i}`);
+        if (item == 'Суббота' || item == 'Воскресенье') { // Если выходные то
+            newdiv.classList.add('italic'); // Делаем дополнительно курсивом (Даже если уже жирным выделено)
+            newdiv.textContent = week[i]; // Вставляем текст
+        } else {
+            newdiv.textContent = week[i]; // Если не текущий день и не выходные, то просто вставляем текст без стилей
         }
-    }
+        day.appendChild(newdiv); // Добавляем новый див в div @day
+
+    });
 };
-simpleNum();
+days(); // Вызываем функцию;
